@@ -88,6 +88,14 @@ map.on('load', () => {
             const distance = (Number(json.routes[0].distance) * 0.000621371).toFixed(2); // convert from meters to miles
             const duration = new Date(Number(json.routes[0].duration) * 1000).toISOString().slice(11, 19); // convert from seconds to HH:MM:SS
 
+            // pop up with route details
+            new mapboxgl.Popup()
+            .setLngLat([start_lon, start_lat])
+            .setHTML(
+                `Distance (mi): ${distance}<br>Duration: ${duration}<br>Start time: ${start_time}<br>End time: ${end_time}`
+            )
+            .addTo(map);
+
             // add layer for route
             map.addLayer({
               'id': 'route',
@@ -106,14 +114,6 @@ map.on('load', () => {
                 'line-opacity': 0.75
               }
             });
-
-            // pop up with route details
-            new mapboxgl.Popup()
-            .setLngLat([start_lon, start_lat])
-            .setHTML(
-                `Distance (mi): ${distance}<br>Duration: ${duration}<br>Start time: ${start_time}<br>End time: ${end_time}<br>Rider type: ${user_type}`
-            )
-            .addTo(map);
             
           } 
     }
