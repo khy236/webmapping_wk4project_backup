@@ -1,6 +1,6 @@
 # Interactive map of Ebike trips taken on Citi Bike's 5/5/2022 NYC Ebike launch
 
-Citi Bike launched [new Ebikes](https://ride.citibikenyc.com/blog/new-york-meet-your-new-ebike) on May 5, 2022 to its Citi Bike and Lyft Pink members. Explore where riders took the new Ebikes on launch day through this [map](https://github.com/khy236/webmapping_wk4project_backup#:~:text=khy236.github.io/webmapping_wk4project_backup/).
+Citi Bike launched [new Ebikes](https://ride.citibikenyc.com/blog/new-york-meet-your-new-ebike) on May 5, 2022 to its Citi Bike and Lyft Pink members. Explore where riders took the new Ebikes on launch day through this [map](https://khy236.github.io/webmapping_wk4project_backup/).
 
 Blue points show where riders started their trips. Bike trip data is from [Citi Bike](https://s3.amazonaws.com/tripdata/index.html).
 
