@@ -47,7 +47,11 @@ map.on('load', () => {
         const end_lon = e.features[0].properties.end_lon;
         const end_lat = e.features[0].properties.end_lat;
 
-        getRoute(start_lon, start_lat, end_lon, end_lat)
+        const user_type = e.features[0].properties.user_type;
+        const start_time = e.features[0].properties.start_time;
+        const end_time = e.features[0].properties.end_time;
+
+        getRoute(start_lon, start_lat, end_lon, end_lat, user_type, start_time, end_time)
     
     });
 
@@ -55,7 +59,7 @@ map.on('load', () => {
     // optimal cycling route-creation function
     // adapted from Getting started with the Mapbox Directions API tutorial: https://docs.mapbox.com/help/tutorials/getting-started-directions-api/
 
-    async function getRoute(start_lon, start_lat, end_lon, end_lat) {
+    async function getRoute(start_lon, start_lat, end_lon, end_lat, user_type, start_time, end_time) {
 
         const query = await fetch(
             `https://api.mapbox.com/directions/v5/mapbox/cycling/${start_lon},${start_lat};${end_lon},${end_lat}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
@@ -72,13 +76,19 @@ map.on('load', () => {
                 coordinates: route
             }
         };
-        
+
         // if the route already exists on the map, we'll reset it using setData
         if (map.getSource('route')) {
             map.getSource('route').setData(geojson);
           }
           // otherwise, we'll make a new request
           else {
+
+            // save distance and duration of trip
+            const distance = (Number(json.routes[0].distance) * 0.000621371).toFixed(2); // convert from meters to miles
+            const duration = new Date(Number(json.routes[0].duration) * 1000).toISOString().slice(11, 19); // convert from seconds to HH:MM:SS
+
+            // add layer for route
             map.addLayer({
               'id': 'route',
               'type': 'line',
@@ -96,6 +106,15 @@ map.on('load', () => {
                 'line-opacity': 0.75
               }
             });
+
+            // pop up with route details
+            new mapboxgl.Popup()
+            .setLngLat([start_lon, start_lat])
+            .setHTML(
+                `Distance (mi): ${distance}<br>Duration: ${duration}<br>Start time: ${start_time}<br>End time: ${end_time}<br>Rider type: ${user_type}`
+            )
+            .addTo(map);
+            
           } 
     }
 })
