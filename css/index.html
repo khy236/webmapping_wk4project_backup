@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Citi Bike Ebike Trips 5/5/22</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <div class="sidebar">
+        <h1>Ebike trips taken on Citi Bike's 5/5/2022 NYC Ebike launch</h1>
+        <p>Citi Bike launched <a href='https://ride.citibikenyc.com/blog/new-york-meet-your-new-ebike'>new Ebikes</a> on May 5, 2022 to its Citi Bike and Lyft Pink members. Explore where riders took the new Ebikes on launch day through this map.</p>
+        
+        <div class="description">
+            <p></p>
+            <p><b>Blue points</b> show where riders started their trips. Bike trip data is from <a href='https://s3.amazonaws.com/tripdata/index.html'>Citi Bike</a>.</p>
+            <p><b>Click on any blue point</b> to view the route the rider may have taken. Routes are estimated using <a href='https://docs.mapbox.com/api/navigation/directions/'>MapBox's Directions API</a>.</p>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="data/220505citibike.js"></script>
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <script src="js/scripts.js"></script>
+
+
+</html>
