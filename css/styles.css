@@ -14,6 +14,7 @@ body {
 h1 {
   font-size: 20px;
   line-height: 30px;
+  color: #005ea1;
 }
 
 h2 {
@@ -27,7 +28,7 @@ h2 {
 
 a {
   text-decoration: none;
-  color: #2dc4b2;
+  color: #0e8ee9;
 }
 
 .sidebar {
@@ -35,7 +36,8 @@ a {
   width: 350px;
   margin: 10px;
   padding: 10px 20px;
-  background-color: white;
+  background-color: #cbe2f2;
+  opacity: 100%;
 }
 
 .legend {

@@ -60,7 +60,7 @@ map.on('load', () => {
     // adapted from Getting started with the Mapbox Directions API tutorial: https://docs.mapbox.com/help/tutorials/getting-started-directions-api/
 
     async function getRoute(start_lon, start_lat, end_lon, end_lat, user_type, start_time, end_time) {
-
+      
         const query = await fetch(
             `https://api.mapbox.com/directions/v5/mapbox/cycling/${start_lon},${start_lat};${end_lon},${end_lat}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
             { method: 'GET' }
@@ -77,24 +77,25 @@ map.on('load', () => {
             }
         };
 
+        // save distance and duration of trip
+        const distance = (Number(json.routes[0].distance) * 0.000621371).toFixed(2); // convert from meters to miles
+        const duration = new Date(Number(json.routes[0].duration) * 1000).toISOString().slice(11, 19); // convert from seconds to HH:MM:SS
+
+        // pop up with route details
+        new mapboxgl.Popup()
+        .setLngLat([start_lon, start_lat])
+        .setHTML(
+            `Distance (mi): ${distance}<br>Duration: ${duration}<br>Start time: ${start_time}<br>End time: ${end_time}`
+        )
+        .addTo(map);
+
         // if the route already exists on the map, we'll reset it using setData
         if (map.getSource('route')) {
             map.getSource('route').setData(geojson);
           }
+          
           // otherwise, we'll make a new request
           else {
-
-            // save distance and duration of trip
-            const distance = (Number(json.routes[0].distance) * 0.000621371).toFixed(2); // convert from meters to miles
-            const duration = new Date(Number(json.routes[0].duration) * 1000).toISOString().slice(11, 19); // convert from seconds to HH:MM:SS
-
-            // pop up with route details
-            new mapboxgl.Popup()
-            .setLngLat([start_lon, start_lat])
-            .setHTML(
-                `Distance (mi): ${distance}<br>Duration: ${duration}<br>Start time: ${start_time}<br>End time: ${end_time}`
-            )
-            .addTo(map);
 
             // add layer for route
             map.addLayer({
